@@ -196,13 +196,13 @@ export default {
   },
   methods: {
     async submitPost() {
-      console.log(this.post, "post");
       const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       };
       const user = await this.$axios.$post("/content", this.post, { headers });
       if (user.data) {
+        this.getPost();
         this.post = {};
         this.regSubmitError = true;
         setTimeout(() => {
@@ -225,6 +225,7 @@ export default {
       await this.$axios.$get("/content/like/" + post.id, {
         headers,
       });
+      this.getPost()
     },
     async getPost() {
       const headers = {

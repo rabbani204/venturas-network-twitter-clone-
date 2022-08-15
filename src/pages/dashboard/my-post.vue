@@ -191,6 +191,7 @@ export default {
       };
       const user = await this.$axios.$post("/content", this.post, { headers });
       if (user.data) {
+        this.getPost();
         this.post = {};
         this.regSubmitError = true;
         setTimeout(() => {
@@ -205,7 +206,6 @@ export default {
     },
 
     async likePost(post) {
-      console.log(post);
       const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -215,7 +215,7 @@ export default {
       });
 
       if (deleteItem.data) {
-        this.post = {};
+        this.getPost();
         this.regSubmitError = true;
         setTimeout(() => {
           this.regSubmitError = false;
